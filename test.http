@@ -14,17 +14,16 @@ Content-Type: application/json
 GET http://localhost:3000/api/wilders 
 
 ###
-GET http://localhost:3000/api/wilders/6228a2e4736664f0354f70b3
-
+GET http://localhost:3000/api/wilders/622768fae59d1dad05c67665
 ###
-PUT http://localhost:3000/api/wilders/6228a2e4736664f0354f70b3
+PUT http://localhost:3000/api/wilders/622768fae59d1dad05c67665
 Content-Type: application/json
 
 {
-    "city": "Paris"
+    "city": "London"
 }
 
 ###
-DELETE http://localhost:3000/api/wilders/6228a2e4736664f0354f70b3
+DELETE http://localhost:3000/api/wilders/622768fae59d1dad05c67665
 
 

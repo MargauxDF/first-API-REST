@@ -1,63 +1,67 @@
 const WilderModel = require("../models/Wilder");
 
 module.exports = {
-    create: (req, res) => {
-        WilderModel.init().then(() => {
-            const wilder = new WilderModel(req.body);
-            wilder
-                .save()
-                .then((result) => {
-                    res.json({ success: true, result: result});
-                })
-                .catch((err) => {
-                    res.json({ success: false, result: err});
-                });
-        });
-    },
+    create: async (req, res) => {
+        try {
+            await WilderModel.init()
+            const newWilder = new WilderModel(req.body);
 
-    findAll: (req, res) => {
-        WilderModel.find()
-            .then(result => {
-                if (!result) res.json({ success: false, result: "No wilders found" })
-
-                res.json({ success: true, result: result });
-            })
-            .catch((err) => {
-                res.json({ success: false, result: err });
-            });
-    },
-
-    findOne: (req, res) => {
-        WilderModel.findById(req.params.id).then(wilder => {
-            res.json(wilder);
-        });
-    },
-
-    update: (req, res) => {
-        WilderModel.findById(req.params.id).then((wilder) => {
-            if(wilder) {
-                Object.assign(wilder, req.body);
-
-                wilder.save().then(() => {
-                    res.json(wilder);
-                })
-                .catch((err) => {
-                    res.json(err);
-                })
-            } else {
-                res.status(404).json({ message: 'not_found' });
+            const result = await newWilder.save();
+            res.json({ success: true, result: result});
+        } catch (err) {
+            if (err.code === 11000) {
+                res.status(400).json({ message: 'Name already taken' });
             }
-        })
-        .catch((err) => {
-            res.json({ success: false, result: err });
-        })
+            console.error(err);
+            res.status(500).json({ message: 'db_error' }); 
+        }
     },
 
-    delete: (req, res) => {
-        WilderModel.findById(req.params.id).then(wilder => {
-            wilder.remove().then(wilder => {
-                res.json(wilder); 
-            });
-        });
+    findAll: async (req, res) => {
+        try {
+            const wilders = await WilderModel.find();
+            res.json(wilders);
+        } catch (err) {
+            console.error(err);
+            res.status(500).json({ message: 'server_error' });
+        }
+    },
+
+    findOne: async (req, res) => {
+        try {
+            const wilder = await WilderModel.findById(req.params.id);
+            res.json(wilder);
+        } catch (err) {
+            console.error(err);
+            res.status(500).json({ message: 'server_error' });
+        }
+    },
+
+    update: async (req, res) => {
+        try {
+            const wilder = await WilderModel.findById(req.params.id);
+                if(wilder) {
+                    Object.assign(wilder, req.body);
+
+                    await wilder.save();
+                        res.json(wilder);
+                } else {
+                    res.status(404).json({ message: 'not_found' });
+                }
+        } catch (err) {
+            console.error(err);
+            res.status(500).json({ message: 'server_error' });
+        }
+    },
+
+    delete: async (req, res) => {
+        try {
+            const wilder = await WilderModel.findById(req.params.id)
+            await wilder.remove();
+            res.json(wilder);
+        } catch (err) {
+            console.error(err);
+            res.status(500).json({ message: 'server_error' });
+        } 
     },
 };
