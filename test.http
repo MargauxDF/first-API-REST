@@ -2,7 +2,7 @@ POST http://localhost:3000/api/wilders HTTP/1.1
 Content-Type: application/json
 
 {
-    "name": "Margaux",
+    "naom": "Margaux",
     "city": "Lyon",
     "skills":[
         {"title": "php", "votes": 10},
@@ -14,16 +14,17 @@ Content-Type: application/json
 GET http://localhost:3000/api/wilders 
 
 ###
-GET http://localhost:3000/api/wilders/622768fae59d1dad05c67665
+GET http://localhost:3000/api/wilders/6228cd802a3ad7d84e530091
+
 ###
 PUT http://localhost:3000/api/wilders/622768fae59d1dad05c67665
 Content-Type: application/json
 
 {
-    "city": "London"
+    "city": "Miami"
 }
 
 ###
-DELETE http://localhost:3000/api/wilders/622768fae59d1dad05c67665
+DELETE http://localhost:3000/api/wilders/6228cd802a3ad7d84e530091
 
 

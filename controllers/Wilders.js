@@ -7,13 +7,14 @@ module.exports = {
             const newWilder = new WilderModel(req.body);
 
             const result = await newWilder.save();
-            res.json({ success: true, result: result});
+            res.json({ success: true, result: result });
         } catch (err) {
             if (err.code === 11000) {
                 res.status(400).json({ message: 'Name already taken' });
+            } else {
+                console.error(err);
+                res.status(500).json({ message: 'db_error' });
             }
-            console.error(err);
-            res.status(500).json({ message: 'db_error' }); 
         }
     },
 
@@ -40,14 +41,14 @@ module.exports = {
     update: async (req, res) => {
         try {
             const wilder = await WilderModel.findById(req.params.id);
-                if(wilder) {
-                    Object.assign(wilder, req.body);
+            if (wilder) {
+                Object.assign(wilder, req.body);
 
-                    await wilder.save();
-                        res.json(wilder);
-                } else {
-                    res.status(404).json({ message: 'not_found' });
-                }
+                await wilder.save();
+                res.json(wilder);
+            } else {
+                res.status(404).json({ message: 'not_found' });
+            }
         } catch (err) {
             console.error(err);
             res.status(500).json({ message: 'server_error' });
@@ -62,6 +63,6 @@ module.exports = {
         } catch (err) {
             console.error(err);
             res.status(500).json({ message: 'server_error' });
-        } 
+        }
     },
 };

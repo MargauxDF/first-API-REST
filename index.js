@@ -25,7 +25,7 @@ app.get("/api/wilders/:id", wilderController.findOne);
 app.put("/api/wilders/:id", wilderController.update);
 app.delete("/api/wilders/:id", wilderController.delete);
 
-//code
+// Handle 404 not found
 app.use((req, res, next) => {
     res.status(404).json({ message: 'Route not found' });
 });
