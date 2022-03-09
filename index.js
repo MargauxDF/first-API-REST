@@ -36,7 +36,7 @@ app.put("/api/wilders/:id", execAsyncHandler(wilderController.update));
 app.delete("/api/wilders/:id", execAsyncHandler(wilderController.delete));
 
 // Handle 500 error
-app.use((error, req, res, next) => {
+app.use((err, req, res, next) => {
     console.error(err);
     res.status(500).json({ message: 'An error occured, sorry' });
 });

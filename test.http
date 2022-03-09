@@ -2,7 +2,7 @@ POST http://localhost:3000/api/wilders HTTP/1.1
 Content-Type: application/json
 
 {
-    "name": "Ben",
+    "name": "Jean",
     "city": "Villeurbanne",
     "skills":[
         {"title": "javascript", "votes": 5},
@@ -14,17 +14,17 @@ Content-Type: application/json
 GET http://localhost:3000/api/wilders 
 
 ###
-GET http://localhost:3000/api/wilders/6228e5b01245357f6e89fc31
+GET http://localhost:3000/api/wilders/6228ea0e1707018425dc5040
 
 ###
-PUT http://localhost:3000/api/wilders/6228e5b01245357f6e89fc31
+PUT http://localhost:3000/api/wilders/6228ea0e1707018425dc5040
 Content-Type: application/json
 
 {
-    "city": "Los Angeles"
+    "city": "St Tropez"
 }
 
 ###
-DELETE http://localhost:3000/api/wilders/6228e5b01245357f6e89fc31
+DELETE http://localhost:3000/api/wilders/6228ea0e1707018425dc5040
 
 
