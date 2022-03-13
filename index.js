@@ -1,13 +1,15 @@
 const express = require("express");
 const mongoose= require("mongoose");
 const wilderController = require("./controllers/Wilders");
+const cors = require("cors");
 const app = express();
 
 function execAsyncHandler(handler) {
     return async function (req, res, next) {
         try {
             await handler(req, res, next);
-        } catch {
+        } catch (err) {
+            console.log("Error caught by the higher order function")
             next(err);
         }
     }
@@ -24,6 +26,7 @@ mongoose
 //Middleware
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(cors());
 
 //Routes
 app.get("/", (req, res) => {
@@ -47,4 +50,4 @@ app.use((req, res, next) => {
 });
 
 //Start Server
-app.listen(3000, () => console.log("Server started on 3000"));
+app.listen(4000, () => console.log("Server started on 4000"));
